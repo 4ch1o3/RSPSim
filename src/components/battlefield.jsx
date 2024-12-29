@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const BattleField = styled.div`
   display: flex;
-  color: ${(props) => props.theme.color.primary}
+  color: var(--primary);
 
   border-radius: 20px;
   border: 4px solid;

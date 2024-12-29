@@ -5,6 +5,8 @@ const StyledInputField = styled.input.attrs((props) => ({
 }))`
   border: 2px solid;
   border-radius: 8px;
+  color: var(--primary);
+  background-color: var(--backgroundColor);
 
   padding: 8px;
 

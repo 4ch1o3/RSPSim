@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import theme from "../theme";
 
 const StyledButton = styled.div`
   background: ${(props) =>
-    props.type === "run" ? "theme.color.primary" : "theme.color.secondary"};
+    props.type === "run" ? "var(--secondary)" : "var(--primary)"};
 
   font-size: var(--h2-font);
   font-weight: 700;
+  color: ${(props) => (props.type === "run" ? "var(--black)" : "var(--white)")};
 
   width: 312px;
   height: 56px;
@@ -22,6 +22,10 @@ const StyledButton = styled.div`
   }
 `;
 
-export const Button = (props) => {
-  return <StyledButton type={props.type}>{props.children}</StyledButton>;
+export const Button = ({ type, onClick, children }) => {
+  return (
+    <StyledButton type={type} onClick={onClick}>
+      {children}
+    </StyledButton>
+  );
 };

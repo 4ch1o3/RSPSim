@@ -6,7 +6,7 @@ const Subtitle = styled.div`
   font-size: var(--subtitle-font);
   font-weight: 700;
   // padding-bottom: 8px;
-  // color: var(--subtitle);
+  color: var(--subtitle);
 `;
 
 export const Option = ({ children }) => {

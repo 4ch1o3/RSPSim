@@ -7,6 +7,15 @@ const GlobalStyle = createGlobalStyle`
         --h1-font: 32px;
         --h2-font: 24px;
         --subtitle-font: 16px;
+        
+        background-color: ${(props) => props.theme.color.backgroundColor};
+        --primary: ${(props) => props.theme.color.primary};
+        --secondary: ${(props) => props.theme.color.secondary};
+        --black: ${(props) => props.theme.color.black};
+        --white: ${(props) => props.theme.color.white};
+        --subtitle: ${(props) => props.theme.color.subtitle};
+        --checkbox: ${(props) => props.theme.color.checkbox};
+        --placeholder: ${(props) => props.theme.color.placeholder};
     }
 
     * {

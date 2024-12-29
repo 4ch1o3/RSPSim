@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Row } from "./layout";
 import { ReactComponent as Day } from "../assets/Day.svg";
 import { ReactComponent as Night } from "../assets/Night.svg";
-import { useState } from "react";
+import { light, dark } from "../theme";
 
 const ModeLabel = styled.div`
   font-size: var(--subtitle);
@@ -13,25 +13,15 @@ const ModeLabel = styled.div`
 const StyledSwitchMode = styled.button`
   background: none;
   border: none;
-
+  color: var(--black);
   font-size: var(--subtitle-font);
   font-weight: 700;
 `;
 
-const SwitchMode = (onClick) => {
-  const [mode, setMode] = useState("day");
-
+const SwitchMode = ({ theme, onClick }) => {
   return (
-    <StyledSwitchMode
-      onClick={() => {
-        if (mode === "day") {
-          setMode("night");
-        } else if (mode === "night") {
-          setMode("day");
-        }
-      }}
-    >
-      {mode === "day" ? (
+    <StyledSwitchMode onClick={onClick}>
+      {theme === light ? (
         <Row gap="8px">
           <Night />
           <ModeLabel>Night Mode</ModeLabel>

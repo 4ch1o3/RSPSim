@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 const StyledInputField = styled.input.attrs((props) => ({
-  type: "text",
+  type: "number",
+  inputMode: "numeric",
+  min: 0,
 }))`
   border: 2px solid;
   border-radius: 8px;
@@ -16,8 +18,13 @@ const StyledInputField = styled.input.attrs((props) => ({
   height: 36px;
 `;
 
-const InputField = () => {
-  return <StyledInputField placeholder="0"></StyledInputField>;
+const InputField = ({ initValue, onChange }) => {
+  return (
+    <StyledInputField
+      placeholder={initValue}
+      onChange={onChange}
+    ></StyledInputField>
+  );
 };
 
 export default InputField;

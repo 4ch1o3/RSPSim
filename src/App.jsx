@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import "./App.css";
 import GlobalStyle from "./GlobalStyle";
@@ -40,6 +40,23 @@ function App() {
     else setMode(light);
   };
 
+  const [amountRock, setAmountRock] = useState(0);
+  const [amountScissors, setAmountScissors] = useState(0);
+  const [amountPaper, setAmountPaper] = useState(0);
+
+  const reset = () => {
+    setAmountRock(0);
+    setAmountScissors(0);
+    setAmountPaper(0);
+  };
+
+  // const [isTimeLimitEnabled, enableTimeLimit] = useState(false);
+  // useEffect(() => {}, [isTimeLimitEnabled]);
+
+  // const setTimeLimit = () => {
+  //   if
+  // }
+
   return (
     <ThemeProvider theme={mode}>
       <GlobalStyle />
@@ -55,9 +72,30 @@ function App() {
             <Column gap="16px">
               <Subtitle>Settings</Subtitle>
               <Column gap="32px">
-                <Option>Initial amount of Rock</Option>
-                <Option>Initial amount of Scissors</Option>
-                <Option>Initial amount of Paper</Option>
+                <Option
+                  initValue={amountRock}
+                  onChange={(e) => {
+                    setAmountRock(e.target.value);
+                  }}
+                >
+                  Initial amount of Rock
+                </Option>
+                <Option
+                  initValue={amountScissors}
+                  onChange={(e) => {
+                    setAmountScissors(e.target.value);
+                  }}
+                >
+                  Initial amount of Scissors
+                </Option>
+                <Option
+                  initValue={amountPaper}
+                  onChange={(e) => {
+                    setAmountPaper(e.target.value);
+                  }}
+                >
+                  Initial amount of Paper
+                </Option>
               </Column>
             </Column>
             <Column gap="24px">
@@ -65,10 +103,35 @@ function App() {
               <Option>Time limit (seconds)</Option>
             </Column>
             <Column gap="16px" alignself="end">
-              <Button type="reset" onClick={() => {}}>
+              <Button
+                type="reset"
+                onClick={() => {
+                  reset();
+                  console.log(
+                    "reset: \n rock: " +
+                      amountRock +
+                      " | scissors: " +
+                      amountScissors +
+                      " | paper: " +
+                      amountPaper
+                  );
+                }}
+              >
                 Reset Settings
               </Button>
-              <Button type="run" onClick={() => {}}>
+              <Button
+                type="run"
+                onClick={() => {
+                  console.log(
+                    "run with: \n rock: " +
+                      amountRock +
+                      " | scissors: " +
+                      amountScissors +
+                      " | paper: " +
+                      amountPaper
+                  );
+                }}
+              >
                 Run!
               </Button>
             </Column>

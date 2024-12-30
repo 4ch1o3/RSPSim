@@ -15,7 +15,7 @@ export const dark = {
   color: {
     backgroundColor: "#282828",
     primary: "#A8CEE9",
-    secondary: "#E29CB4",
+    secondary: "#E88670",
     black: "#FFFFFF",
     white: "#000000",
     subtitle: "#CCCCCC",

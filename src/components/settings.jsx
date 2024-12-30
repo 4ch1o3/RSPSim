@@ -9,11 +9,11 @@ const Subtitle = styled.div`
   color: var(--subtitle);
 `;
 
-export const Option = ({ children }) => {
+export const Option = ({ initValue, onChange, children }) => {
   return (
     <Column gap="8px">
       <Subtitle>{children}</Subtitle>
-      <InputField></InputField>
+      <InputField initValue={initValue} onChange={onChange}></InputField>
     </Column>
   );
 };

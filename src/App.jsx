@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import { Button } from "./components/button";
 import { Column, Row } from "./components/layout";
-import { BattleField } from "./components/battlefield";
+import { BattleField } from "./components/battlefield.tsx";
 
 import { CheckOption, Option } from "./components/settings";
 import SwitchMode from "./components/switch_mode";

@@ -50,12 +50,13 @@ function App() {
     setAmountPaper(0);
   };
 
-  // const [isTimeLimitEnabled, enableTimeLimit] = useState(false);
-  // useEffect(() => {}, [isTimeLimitEnabled]);
+  const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
+  const toggleTimeLimit = () => {
+    console.log(isTimeLimitEnabled);
+    setIsTimeLimitEnabled((prev) => !prev);
+  };
 
-  // const setTimeLimit = () => {
-  //   if
-  // }
+  const setTimeLimit = () => {};
 
   return (
     <ThemeProvider theme={mode}>
@@ -99,8 +100,19 @@ function App() {
               </Column>
             </Column>
             <Column gap="24px">
-              <CheckOption>Use time limit?</CheckOption>
-              <Option>Time limit (seconds)</Option>
+              <CheckOption onClick={toggleTimeLimit}>
+                Use time limit?
+              </CheckOption>
+              {isTimeLimitEnabled && (
+                <Option
+                  initValue={0}
+                  onChange={(e) => {
+                    setTimeLimit(e.target.value);
+                  }}
+                >
+                  Time limit (seconds)
+                </Option>
+              )}
             </Column>
             <Column gap="16px" alignself="end">
               <Button
@@ -122,13 +134,16 @@ function App() {
               <Button
                 type="run"
                 onClick={() => {
-                  console.log(
+                  alert(
                     "run with: \n rock: " +
                       amountRock +
                       " | scissors: " +
                       amountScissors +
                       " | paper: " +
-                      amountPaper
+                      amountPaper +
+                      "\nUse time limit? " +
+                      isTimeLimitEnabled +
+                      "\ntime limit(s): "
                   );
                 }}
               >

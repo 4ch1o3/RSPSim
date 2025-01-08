@@ -18,11 +18,11 @@ export const Option = ({ initValue, onChange, children }) => {
   );
 };
 
-export const CheckOption = ({ children }) => {
+export const CheckOption = ({ children, onClick }) => {
   return (
     <Row>
       <Subtitle>{children}</Subtitle>
-      <input type="checkbox"></input>
+      <input type="checkbox" onClick={onClick}></input>
     </Row>
   );
 };

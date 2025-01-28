@@ -78,6 +78,11 @@ function App() {
     alert(`Simulation ended! Winner is ${winner}`);
   };
 
+  const stopSimulation = () => {
+    setIsRunning(false);
+    setEntities([]);
+  };
+
   const reset = () => {
     setrockAmount(0);
     setscissorsAmount(0);
@@ -103,16 +108,14 @@ function App() {
         </Row>
 
         <Row gap="16px">
-          <BattleFieldContainer>
-            {isRunning ? (
-              <BattleField
-                entities={entities}
-                onSimulationEnd={handleSimulationEnd}
-              />
-            ) : (
-              <div />
-            )}
-          </BattleFieldContainer>
+          {isRunning ? (
+            <BattleField
+              entities={entities}
+              onSimulationEnd={handleSimulationEnd}
+            />
+          ) : (
+            <BattleFieldContainer />
+          )}
 
           <Column gap="96px">
             <Column gap="16px">
@@ -177,7 +180,9 @@ function App() {
                 Reset Settings
               </Button>
               {isRunning ? (
-                <div></div> // TODO: add stop button, terminate without winner
+                <Button type="run" onClick={stopSimulation}>
+                  Stop
+                </Button> // TODO: add stop button, terminate without winner
               ) : (
                 <Button
                   type="run"

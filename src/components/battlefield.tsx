@@ -4,8 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import React from "react";
 
 export const BattleFieldContainer = styled.div`
+  position: relative;
   display: flex;
   color: var(--primary);
+  overflow: hidden;
 
   border-radius: 20px;
   border: 4px solid;

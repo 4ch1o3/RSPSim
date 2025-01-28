@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import "./App.css";
-import GlobalStyle from "./GlobalStyle";
+import GlobalStyle from "./GlobalStyle.js";
 import { ThemeProvider } from "styled-components";
-import { light, dark } from "./theme";
+import { light, dark } from "./theme.js";
 import { useState } from "react";
 
-import { Button } from "./components/button";
-import { Column, Row } from "./components/layout";
-import { BattleField } from "./components/battlefield.tsx";
+import { Button } from "./components/button.jsx";
+import { Column, Row } from "./components/layout.jsx";
+import {
+  BattleField,
+  BattleFieldContainer,
+} from "./components/battlefield.tsx";
+import { Entity } from "./components/Entity.ts";
 
-import { CheckOption, Option } from "./components/settings";
-import SwitchMode from "./components/switch_mode";
+import { CheckOption, Option } from "./components/settings.jsx";
+import SwitchMode from "./components/switch_mode.jsx";
 
 export const Title = styled.div`
   color: ${(props) => props.theme.color.black};
@@ -40,14 +44,41 @@ function App() {
     else setMode(light);
   };
 
-  const [amountRock, setAmountRock] = useState(0);
-  const [amountScissors, setAmountScissors] = useState(0);
-  const [amountPaper, setAmountPaper] = useState(0);
+  const [rockAmount, setrockAmount] = useState(0);
+  const [scissorsAmount, setscissorsAmount] = useState(0);
+  const [paperAmount, setpaperAmount] = useState(0);
+
+  const [isRunning, setIsRunning] = useState(false);
+  const [entities, setEntities] = useState([]); // tsx: useState<Entity[]>([]);
+
+  const handleRun = () => {
+    const rockEntities = Array.from(
+      { length: rockAmount },
+      () => new Entity("rock")
+    );
+    const scissorsEntities = Array.from(
+      { length: scissorsAmount },
+      () => new Entity("scissors")
+    );
+    const paperEntities = Array.from(
+      { length: paperAmount },
+      () => new Entity("paper")
+    );
+    setEntities([...rockEntities, ...scissorsEntities, ...paperEntities]);
+    setIsRunning(true);
+  };
+
+  const handleSimulationEnd = (finalEntities) => {
+    // finalEntities: Entity[]
+    setIsRunning(false);
+    const winner = finalEntities[0]?.type || "none";
+    alert(`Simulation ended! Winner is ${winner}`);
+  };
 
   const reset = () => {
-    setAmountRock(0);
-    setAmountScissors(0);
-    setAmountPaper(0);
+    setrockAmount(0);
+    setscissorsAmount(0);
+    setpaperAmount(0);
   };
 
   const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
@@ -56,7 +87,9 @@ function App() {
     setIsTimeLimitEnabled((prev) => !prev);
   };
 
-  const setTimeLimit = () => {};
+  const setTimeLimit = ({ seconds }) => {};
+
+  // TODO: add makeEntity
 
   return (
     <ThemeProvider theme={mode}>
@@ -68,31 +101,38 @@ function App() {
         </Row>
 
         <Row gap="16px">
-          <BattleField></BattleField>
+          {isRunning ? (
+            <BattleField
+              entities={entities}
+              onSimulationEnd={handleSimulationEnd}
+            />
+          ) : (
+            <BattleFieldContainer />
+          )}
           <Column gap="96px">
             <Column gap="16px">
               <Subtitle>Settings</Subtitle>
               <Column gap="32px">
                 <Option
-                  initValue={amountRock}
+                  initValue={rockAmount}
                   onChange={(e) => {
-                    setAmountRock(e.target.value);
+                    setrockAmount(Number(e.target.value));
                   }}
                 >
                   Initial amount of Rock
                 </Option>
                 <Option
-                  initValue={amountScissors}
+                  initValue={scissorsAmount}
                   onChange={(e) => {
-                    setAmountScissors(e.target.value);
+                    setscissorsAmount(Number(e.target.value));
                   }}
                 >
                   Initial amount of Scissors
                 </Option>
                 <Option
-                  initValue={amountPaper}
+                  initValue={paperAmount}
                   onChange={(e) => {
-                    setAmountPaper(e.target.value);
+                    setpaperAmount(Number(e.target.value));
                   }}
                 >
                   Initial amount of Paper
@@ -121,11 +161,11 @@ function App() {
                   reset();
                   console.log(
                     "reset: \n rock: " +
-                      amountRock +
+                      rockAmount +
                       " | scissors: " +
-                      amountScissors +
+                      scissorsAmount +
                       " | paper: " +
-                      amountPaper
+                      paperAmount
                   );
                 }}
               >
@@ -136,15 +176,16 @@ function App() {
                 onClick={() => {
                   alert(
                     "run with: \n rock: " +
-                      amountRock +
+                      rockAmount +
                       " | scissors: " +
-                      amountScissors +
+                      scissorsAmount +
                       " | paper: " +
-                      amountPaper +
+                      paperAmount +
                       "\nUse time limit? " +
                       isTimeLimitEnabled +
                       "\ntime limit(s): "
                   );
+                  handleRun();
                 }}
               >
                 Run!

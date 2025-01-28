@@ -51,6 +51,9 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [entities, setEntities] = useState([]); // tsx: useState<Entity[]>([]);
 
+  const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
+  const [timeLimit, setTimelimit] = useState(0);
+
   const handleRun = () => {
     const rockEntities = Array.from(
       { length: rockAmount },
@@ -81,15 +84,14 @@ function App() {
     setpaperAmount(0);
   };
 
-  const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
   const toggleTimeLimit = () => {
     console.log(isTimeLimitEnabled);
     setIsTimeLimitEnabled((prev) => !prev);
   };
 
-  const setTimeLimit = ({ seconds }) => {};
-
-  // TODO: add makeEntity
+  const setSimulationDuration = (duration) => {
+    setTimelimit(duration);
+  };
 
   return (
     <ThemeProvider theme={mode}>
@@ -101,14 +103,17 @@ function App() {
         </Row>
 
         <Row gap="16px">
-          {isRunning ? (
-            <BattleField
-              entities={entities}
-              onSimulationEnd={handleSimulationEnd}
-            />
-          ) : (
-            <BattleFieldContainer />
-          )}
+          <BattleFieldContainer>
+            {isRunning ? (
+              <BattleField
+                entities={entities}
+                onSimulationEnd={handleSimulationEnd}
+              />
+            ) : (
+              <div />
+            )}
+          </BattleFieldContainer>
+
           <Column gap="96px">
             <Column gap="16px">
               <Subtitle>Settings</Subtitle>
@@ -147,7 +152,7 @@ function App() {
                 <Option
                   initValue={0}
                   onChange={(e) => {
-                    setTimeLimit(e.target.value);
+                    setSimulationDuration(Number(e.target.value));
                   }}
                 >
                   Time limit (seconds)
@@ -171,25 +176,30 @@ function App() {
               >
                 Reset Settings
               </Button>
-              <Button
-                type="run"
-                onClick={() => {
-                  alert(
-                    "run with: \n rock: " +
-                      rockAmount +
-                      " | scissors: " +
-                      scissorsAmount +
-                      " | paper: " +
-                      paperAmount +
-                      "\nUse time limit? " +
-                      isTimeLimitEnabled +
-                      "\ntime limit(s): "
-                  );
-                  handleRun();
-                }}
-              >
-                Run!
-              </Button>
+              {isRunning ? (
+                <div></div> // TODO: add stop button, terminate without winner
+              ) : (
+                <Button
+                  type="run"
+                  onClick={() => {
+                    alert(
+                      "run with: \n rock: " +
+                        rockAmount +
+                        " | scissors: " +
+                        scissorsAmount +
+                        " | paper: " +
+                        paperAmount +
+                        "\nUse time limit? " +
+                        isTimeLimitEnabled +
+                        "\ntime limit(s): " +
+                        timeLimit
+                    );
+                    handleRun();
+                  }}
+                >
+                  Run!
+                </Button>
+              )}
             </Column>
           </Column>
         </Row>

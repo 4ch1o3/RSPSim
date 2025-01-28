@@ -26,7 +26,7 @@ const EmojiEntity = styled.div`
 const entityEmojis: Record<EntityType, string> = {
   rock: "🪨",
   scissors: "✂️",
-  paper: "📄",
+  paper: "📃",
 };
 
 interface BattleFieldProps {
@@ -37,7 +37,7 @@ interface BattleFieldProps {
 export function BattleField({ entities, onSimulationEnd }: BattleFieldProps) {
   const [positions, setPositions] = useState(
     entities.map(() => ({
-      x: Math.random() * 560 + 20, // 랜덤 초기 위치
+      x: Math.random() * 560 + 20,
       y: Math.random() * 560 + 20,
     }))
   );

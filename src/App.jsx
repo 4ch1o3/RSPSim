@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import "./App.css";
 import GlobalStyle from "./GlobalStyle.js";
@@ -104,10 +104,13 @@ function App() {
       <Background>
         <Row>
           <Title>Rock-Scissors-Paper Simulator</Title>
+
+          {/* switch day/night mode */}
           <SwitchMode theme={mode} onClick={toggleMode}></SwitchMode>
         </Row>
 
         <Row gap="16px">
+          {/* Simulation area */}
           {isRunning ? (
             <BattleField
               entities={entities}
@@ -119,8 +122,10 @@ function App() {
 
           <Column gap="96px">
             <Column gap="16px">
+              {/* Settings area */}
               <Subtitle>Settings</Subtitle>
               <Column gap="32px">
+                {/* Initial rock entity amount */}
                 <Option
                   initValue={rockAmount}
                   onChange={(e) => {
@@ -129,6 +134,8 @@ function App() {
                 >
                   Initial amount of Rock
                 </Option>
+
+                {/* Initial scissors entity amount */}
                 <Option
                   initValue={scissorsAmount}
                   onChange={(e) => {
@@ -137,6 +144,8 @@ function App() {
                 >
                   Initial amount of Scissors
                 </Option>
+
+                {/* Initial paper entity amount */}
                 <Option
                   initValue={paperAmount}
                   onChange={(e) => {
@@ -151,6 +160,8 @@ function App() {
               <CheckOption onClick={toggleTimeLimit}>
                 Use time limit?
               </CheckOption>
+
+              {/* show duration input form when time limit enabled */}
               {isTimeLimitEnabled && (
                 <Option
                   initValue={0}
@@ -163,6 +174,7 @@ function App() {
               )}
             </Column>
             <Column gap="16px" alignself="end">
+              {/* Reset button */}
               <Button
                 type="reset"
                 onClick={() => {
@@ -179,10 +191,12 @@ function App() {
               >
                 Reset Settings
               </Button>
+
+              {/* Run/Stop button */}
               {isRunning ? (
                 <Button type="run" onClick={stopSimulation}>
                   Stop
-                </Button> // TODO: add stop button, terminate without winner
+                </Button>
               ) : (
                 <Button
                   type="run"
@@ -199,7 +213,7 @@ function App() {
                         "\ntime limit(s): " +
                         timeLimit
                     );
-                    handleRun();
+                    handleRun(); // start simulation
                   }}
                 >
                   Run!
